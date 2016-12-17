@@ -109,9 +109,9 @@
                    (assoc 14 nil))]
       (is (= tree
              [:black
-              [:black [:red nil 1 nil] 5 nil]
-              7
-              [:black nil 10 [:red nil 14 nil]]]))))
+              [:black [:red nil [1 nil] nil] [5 nil] nil]
+              [7 nil]
+              [:black nil [10 nil] [:red nil [14 nil] nil]]]))))
 
   (testing "Vector-based red-black trees: contains?"
     (let [tree (-> (assoc nil 10 nil)
@@ -124,4 +124,22 @@
         true  (contains? tree 7)
         true  (contains? tree 14)
         false (contains? tree 20)
-        false (contains? tree 2)))))
+        false (contains? tree 2))))
+
+  (testing "keys"
+    (let [tree (-> (assoc nil 10 nil)
+                   (assoc 5 nil)
+                   (assoc 7 nil)
+                   (assoc 1 nil)
+                   (assoc 14 nil))]
+      (is (= (keys tree)
+             '(1 5 7 10 14)))))
+
+  (testing "vals"
+    (let [tree (-> (assoc nil 10 14)
+                   (assoc 5 10)
+                   (assoc 7 5)
+                   (assoc 1 7)
+                   (assoc 14 1))]
+      (is (= (vals tree)
+             '(7 10 5 14 1))))))
