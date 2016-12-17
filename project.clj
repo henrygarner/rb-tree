@@ -1,4 +1,4 @@
-(defproject rb-tree "0.1.0"
+(defproject rb-tree "0.1.1-SNAPSHOT"
   :description "A red-black tree implementation for Clojure(Script)"
   :url "https://github.com/henrygarner/rb-tree"
   :license {:name "Eclipse Public License"

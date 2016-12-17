@@ -1,4 +1,5 @@
 (ns rb-tree.core-test
+  (:refer-clojure :exclude [assoc contains?])
   (:require [clojure.test :refer :all]
             [rb-tree.core :refer :all]
             [clojure.zip :as z]))
@@ -100,27 +101,27 @@
                       [:black nil "d" nil]]]]]
           (assert-balanced (balance tree))))))
 
-  (testing "Vector-based red-black trees: insert"
-    (let [tree (-> (insert nil 10)
-                   (insert 5)
-                   (insert 7)
-                   (insert 1)
-                   (insert 14))]
+  (testing "Vector-based red-black trees: assoc"
+    (let [tree (-> (assoc nil 10 nil)
+                   (assoc 5 nil)
+                   (assoc 7 nil)
+                   (assoc 1 nil)
+                   (assoc 14 nil))]
       (is (= tree
              [:black
               [:black [:red nil 1 nil] 5 nil]
               7
               [:black nil 10 [:red nil 14 nil]]]))))
 
-  (testing "Vector-based red-black trees: membership"
-    (let [tree (-> (insert nil 10)
-                   (insert 5)
-                   (insert 7)
-                   (insert 1)
-                   (insert 14))]
+  (testing "Vector-based red-black trees: contains?"
+    (let [tree (-> (assoc nil 10 nil)
+                   (assoc 5 nil)
+                   (assoc 7 nil)
+                   (assoc 1 nil)
+                   (assoc 14 nil))]
       (are [x y] (= x y)
-        true  (is-member? tree 10)
-        true  (is-member? tree 7)
-        true  (is-member? tree 14)
-        false (is-member? tree 20)
-        false (is-member? tree 2)))))
+        true  (contains? tree 10)
+        true  (contains? tree 7)
+        true  (contains? tree 14)
+        false (contains? tree 20)
+        false (contains? tree 2)))))
